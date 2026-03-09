@@ -20,11 +20,11 @@ import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
     <h2>A dashcam product where the algorithm wasn't ours to change</h2>
     <p>
       Cobli is a Brazilian fleet telematics company — GPS trackers and dashcams installed
-      in trucks, with a SaaS platform that turns the raw data into operational intelligence
+      in vehicles, with a SaaS platform that turns the raw data into operational intelligence
       for logistics and transport companies.
     </p>
     <p>
-      I joined as PM of the AI squad, responsible for the features built on top of the
+      I joined as BU leader of the dashcam product and PM of the AI squad, responsible for the features built on top of the
       dashcam hardware. The dashcam itself ran an embedded computer vision algorithm
       supplied by the hardware vendor — detecting risky driving events like unsafe following
       distance, drowsiness, and driver distraction. We had no ability to modify the
@@ -50,7 +50,7 @@ import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
     <p>
       And we couldn't fix the source. Every path that involved modifying the embedded
       algorithm required going through the hardware vendor — a timeline of months per
-      iteration, if at all.
+      iteration.
     </p>
   </div>
 
@@ -127,33 +127,14 @@ import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
     <ul class="cs-list">
       <li>Initiated and ran the video labeling exercise to establish baseline precision —
           the measurement that made every subsequent decision concrete</li>
-      <li>Built the event-type prioritization framework and led the workshops with
-          ML, CS, and Customer ops that produced the prioritization decision</li>
+      <li>Built the event-type prioritization framework and gathered input from
+          Key Account CSMs to inform the prioritization decision</li>
       <li>Defined the cloud validator architecture as the strategic response to
           the firmware dependency — the choice to build on top rather than waiting
           for vendor iteration</li>
-      <li>Managed the squad's experiment cycles and model iteration process,
-          including the dataset design choices that made the labeled data reusable</li>
+      <li>Worked as PM of the squad through the model iterations that reached
+          high precision and recall</li>
     </ul>
-  </div>
-
-  <div class="cs-section" data-animate>
-    <span class="cs-section-label">Reflection</span>
-    <h2>What I'd do differently</h2>
-    <p>
-      I'd start the labeling exercise on day one. I treated it as step one of the
-      solution process — but it's really a prerequisite for having any useful
-      conversation about AI product quality. We had anecdotal data for months before
-      we had a precision number. Establishing measurement infrastructure before
-      anything else is now a pattern I apply from the first week in any AI product role.
-    </p>
-    <p>
-      I'd also loop CS in earlier on the rollout plan for the cloud validator.
-      When we eventually communicated that customers would see fewer alerts (even though
-      fewer was the goal), some accounts interpreted the reduction as a product regression.
-      The explanation of "we're now filtering to only show you validated events" needed
-      to be proactive, not reactive.
-    </p>
   </div>
 
   <div class="cs-section" data-animate>
@@ -161,19 +142,18 @@ import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
     <h2>Other significant work in this role</h2>
     <ul class="cs-list">
       <li>
-        <strong>Facial recognition precision (S007)</strong> — Debugged and improved
-        driver identification precision from ~80% to 98% in production. The root cause
-        was a new dashcam model with infrared lenses that changed the image type fed to
-        a model never trained on colorless images. Deployed to all customers by mid-2025;
-        a churning enterprise account stabilized.
+        <strong>Facial recognition precision improvement</strong> — Improved driver
+        identification precision from ~80% to 98% in production. Root cause was poor
+        image quality, identified through iterative dataset labeling and testing across
+        different facial recognition models. Solution was to detect and filter low-quality
+        images before inference. A churning enterprise account stabilized after rollout.
       </li>
       <li>
-        <strong>UX-retention correlation analysis (S004)</strong> — Self-initiated
+        <strong>UX-retention correlation analysis</strong> — Self-initiated
         cross-squad project: ran a 12-month cohort analysis correlating product feature
         usage combinations with net revenue retention. Found meaningful correlations,
         proposed a "breadth of usage" metric adopted company-wide. UX teams gained
-        roadmap space in the following planning cycle; MRR retention improved by 2pp
-        in the subsequent period.
+        roadmap space in the following planning cycle.
       </li>
     </ul>
   </div>
