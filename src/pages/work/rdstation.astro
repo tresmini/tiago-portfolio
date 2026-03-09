@@ -131,46 +131,26 @@ import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
   </div>
 
   <div class="cs-section" data-animate>
-    <span class="cs-section-label">Reflection</span>
-    <h2>What I'd do differently</h2>
-    <p>
-      The design partner pool was too small. Five accounts gave consistent signal, but
-      not enough variance — I was seeing the same pain points repeatedly by session
-      three. A larger pool (10–15 accounts) would have surfaced edge cases faster and
-      reduced the risk of optimizing for one agency's specific workflow rather than
-      the segment's common needs.
-    </p>
-    <p>
-      I'd also have structured the feedback capture from session one. In practice,
-      notes from early sessions were informal and harder to compare. By the time I
-      formalized the feedback template, I'd lost the ability to do clean before/after
-      comparisons on the earliest sessions. The measurement discipline I applied to
-      the survey should have applied equally to the qualitative research process.
-    </p>
-  </div>
-
-  <div class="cs-section" data-animate>
     <span class="cs-section-label">Also at RD Station</span>
     <h2>Other significant work in this role</h2>
     <ul class="cs-list">
       <li>
-        <strong>Analytics query latency (S003)</strong> — Resolved a critical performance
+        <strong>Analytics query latency</strong> — Resolved a critical performance
         issue: analytical queries running on a transactional PostgreSQL database were
         hitting p90 latency above 30 seconds — past the browser timeout, causing reports
-        to crash. I had no background in data warehousing. First move: benchmarked
-        competitors (if they solved it at larger scale, we could too). Commissioned a
-        research sprint; the team proposed a streaming architecture into Amazon Redshift.
-        I proposed a prototype before committing to a 3-month build — 1-2 tables, the
-        4 most-used queries, 1 week of data. Prototype confirmed the direction.
-        Result: p90 from 30s+ to ~3s.
+        to crash. First move: benchmarked competitors (if they solved it at larger scale,
+        we could too). Commissioned a research sprint; the team proposed migrating to a
+        more performant analytics architecture. I proposed a prototype before committing
+        to a 3-month build — 1-2 tables, the 4 most-used queries, 1 week of data.
+        Prototype confirmed the direction. Result: p90 from 30s+ to ~3s.
       </li>
       <li>
-        <strong>First-party web tracker (S005)</strong> — Replaced the Google Analytics
-        integration with a first-party event tracker. The strategic argument: GA gave
-        us aggregated pageview counts; owning raw events was the infrastructure prerequisite
-        for a Customer Data Platform — the difference between "20 visitors today" and
-        "this lead in your CRM visited your pricing page 3 minutes ago." Reached 99%
-        precision in controlled conditions. A dedicated squad was hired to own the roadmap.
+        <strong>First-party web tracker</strong> — Proposed replacing the Google Analytics
+        integration with a first-party event tracker. The GA integration created reliability
+        issues for customers — but more importantly, owning raw pageview events was the
+        difference between the product saying "20 visitors today" and "this lead in your
+        CRM visited your pricing page 3 minutes ago." A dedicated squad was hired to build
+        the tracker, and by the time I left, it had reached +95% precision compared to GA.
       </li>
     </ul>
   </div>
