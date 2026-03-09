@@ -1,0 +1,488 @@
+---
+/**
+ * index.astro — Home page (route: /)
+ * Sections: Hero → About → Experience → Contact
+ */
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Tiago Resmini — Product Manager">
+
+  <!-- ── Hero ─────────────────────────────────────────────────
+       First thing an interviewer sees. Must answer in 5 seconds:
+       who are you, what do you do, what should I click next.
+  ────────────────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="container hero-inner">
+
+      <!-- Left: text content -->
+      <div class="hero-text">
+        <span class="section-label">Product Manager</span>
+
+        <h1 class="hero-name">Hi, I'm Tiago Resmini.</h1>
+
+        <p class="hero-tagline">
+          10 years building digital products at the intersection of
+          business complexity, technical systems, and human behaviour.
+        </p>
+
+        <!-- Domain tags: quick scannable signal for the interviewer -->
+        <div class="hero-tags">
+          <span class="tag">SaaS</span>
+          <span class="tag">Marketplace</span>
+          <span class="tag">AI Products</span>
+          <span class="tag">Fleet Tech</span>
+        </div>
+
+        <!-- Two CTAs: primary action + secondary action -->
+        <div class="hero-ctas">
+          <a href="/work" class="btn btn-primary">See my work →</a>
+          <a href="/cv.pdf" download class="btn btn-ghost">Download CV</a>
+        </div>
+      </div>
+
+      <!-- Right: photo -->
+      <div class="hero-photo">
+        <!-- Photo placeholder — will be replaced with real image later -->
+        <div class="photo-placeholder" aria-label="Photo coming soon"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── About ────────────────────────────────────────────────
+       Not a biography. A positioning statement that tells the
+       interviewer *why* you think the way you do as a PM.
+       Light gray background creates visual rhythm vs white hero.
+  ────────────────────────────────────────────────────────── -->
+  <section class="about">
+    <div class="container">
+      <span class="section-label" data-animate>About</span>
+      <h2 class="about-heading" data-animate>I started as an engineer.<br/>I stayed because of the problems.</h2>
+
+      <div class="about-body">
+        <p data-animate>
+          I studied Mechanical and Control Engineering — a discipline obsessed with
+          feedback loops, system stability, and making things work reliably under real
+          conditions. That mindset never left me. When I moved into product management at
+          RD Station in 2016, I brought it with me: define the system, understand the
+          variables, measure what actually matters.
+        </p>
+        <p data-animate>
+          Over 10 years across three very different companies — a MarTech SaaS, Brazil's
+          largest classifieds marketplace, and a fleet telematics startup — I've developed
+          a pattern I return to constantly: when the right measurement instrument doesn't
+          exist, build it before doing anything else. Whether that's a precision baseline
+          for an AI model, a step-count proxy for a platform investment, or a two-question
+          survey that separates result satisfaction from effort satisfaction — the
+          measurement design usually determines whether the product decision is guesswork
+          or not.
+        </p>
+        <p data-animate>
+          I'm currently looking for a Senior or Staff PM role where I can operate at the
+          intersection of technical complexity and business impact — ideally in a team that
+          takes craft seriously and moves with intention.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Experience Timeline ──────────────────────────────────
+       A map of the career arc — not a CV duplicate.
+       Each entry links to the corresponding case study.
+       White background, back to alternating rhythm.
+  ────────────────────────────────────────────────────────── -->
+  <section class="experience">
+    <div class="container">
+      <span class="section-label" data-animate>Experience</span>
+      <h2 class="experience-heading" data-animate>Where I've worked</h2>
+
+      <ol class="timeline">
+
+        <li class="timeline-item" data-animate>
+          <div class="timeline-meta">
+            <span class="timeline-period">Jul 2024 — Jan 2026</span>
+          </div>
+          <div class="timeline-content">
+            <h3 class="timeline-company">Cobli</h3>
+            <p class="timeline-role">Senior Product Manager</p>
+            <p class="timeline-description">
+              Fleet intelligence platform (hardware + SaaS). Led the video telematics
+              business unit across 4 squads, driving AI-powered safety features and
+              a full UX overhaul of the core product.
+            </p>
+            <a href="/work/cobli" class="timeline-link">Read case study →</a>
+          </div>
+        </li>
+
+        <li class="timeline-item" data-animate>
+          <div class="timeline-meta">
+            <span class="timeline-period">Feb 2021 — Jun 2024</span>
+          </div>
+          <div class="timeline-content">
+            <h3 class="timeline-company">OLX Brasil</h3>
+            <p class="timeline-role">Senior Product Manager</p>
+            <p class="timeline-description">
+              Brazil's largest classifieds marketplace. Built an internal platform that
+              decoupled backend from frontend via APIs, cutting time-to-deploy new use
+              cases by 80%.
+            </p>
+            <a href="/work/olx" class="timeline-link">Read case study →</a>
+          </div>
+        </li>
+
+        <li class="timeline-item" data-animate>
+          <div class="timeline-meta">
+            <span class="timeline-period">Jan 2016 — Jan 2021</span>
+          </div>
+          <div class="timeline-content">
+            <h3 class="timeline-company">RD Station</h3>
+            <p class="timeline-role">Senior Product Manager</p>
+            <p class="timeline-description">
+              Brazil's leading MarTech SaaS. Owned the reporting and analytics product,
+              reducing query latency by 90% and growing feature adoption by 30% MAU.
+            </p>
+            <a href="/work/rdstation" class="timeline-link">Read case study →</a>
+          </div>
+        </li>
+
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── Contact ──────────────────────────────────────────────
+       id="contact" is what the nav "Contact" link anchors to.
+       Clicking it smooth-scrolls here from anywhere on the page.
+  ────────────────────────────────────────────────────────── -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <span class="section-label" data-animate>Contact</span>
+      <h2 class="contact-heading" data-animate>Let's talk.</h2>
+      <p class="contact-sub" data-animate>
+        I'm currently open to new opportunities. If you'd like to discuss a role,
+        a project, or just connect — reach out directly.
+      </p>
+
+      <div class="contact-links" data-animate>
+        <a href="mailto:tiagoresmini@gmail.com" class="contact-item">
+          <span class="contact-label">Email</span>
+          <span class="contact-value">tiagoresmini@gmail.com</span>
+        </a>
+        <a href="https://linkedin.com/in/tiagoresmini" target="_blank" rel="noopener" class="contact-item">
+          <span class="contact-label">LinkedIn</span>
+          <span class="contact-value">/in/tiagoresmini</span>
+        </a>
+        <a href="/cv.pdf" download class="contact-item">
+          <span class="contact-label">CV</span>
+          <span class="contact-value">Download PDF →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* ── Hero section ──────────────────────────────────────────
+     min-height makes it fill most of the screen on load,
+     so the interviewer sees everything without scrolling.
+  ────────────────────────────────────────────────────────── */
+  .hero {
+    min-height: calc(88vh - var(--nav-height));
+    display: flex;
+    align-items: center;
+    padding: 80px 0;
+  }
+
+  /* Two-column grid: text left, photo right.
+     1fr takes all remaining space; 200px is fixed for the photo. */
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    gap: 48px;
+    align-items: center;
+  }
+
+  /* ── Name heading ────────────────────────────────────────
+     clamp(min, preferred, max): fluid font size that scales
+     with the viewport. Reads: "at least 1.75rem, ideally 3vw,
+     but never more than 2.25rem".
+     Sized to keep the full name on one line.
+  ────────────────────────────────────────────────────────── */
+  .hero-name {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    margin-top: 8px;
+    margin-bottom: 20px;
+  }
+
+  .hero-tagline {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    max-width: 48ch;
+    margin-bottom: 28px;
+  }
+
+  /* ── Domain tags ─────────────────────────────────────────
+     Pill-shaped labels — quick keyword signal for scanners.
+  ────────────────────────────────────────────────────────── */
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 36px;
+  }
+
+  .tag {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 999px; /* pill shape */
+    padding: 4px 14px;
+  }
+
+  /* ── Buttons ─────────────────────────────────────────────
+     Two visual weights: filled (primary) and outlined (ghost).
+     Both transition smoothly on hover (200ms ease).
+  ────────────────────────────────────────────────────────── */
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+  }
+
+  .btn-primary {
+    background-color: var(--color-accent);
+    color: #FFFFFF;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-accent-hover);
+    color: #FFFFFF;
+  }
+
+  .btn-ghost {
+    background-color: transparent;
+    color: var(--color-text-primary);
+    border: 1.5px solid var(--color-border);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  /* ── Photo placeholder ───────────────────────────────────
+     Dashed box holds the space — replaced with real photo
+     in the content phase.
+  ────────────────────────────────────────────────────────── */
+  .hero-photo {
+    display: flex;
+    justify-content: center;
+  }
+
+  .photo-placeholder {
+    width: 180px;
+    height: 210px;
+    background-color: var(--color-surface);
+    border-radius: 12px;
+    border: 2px dashed var(--color-border);
+  }
+
+  /* ── Mobile layout ───────────────────────────────────────
+     Below 640px: switch to single column, photo above text.
+     @media is CSS for "apply these rules only when the screen
+     width is 640px or less".
+  ────────────────────────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-photo {
+      order: -1; /* moves photo above text */
+    }
+
+    .photo-placeholder {
+      width: 140px;
+      height: 160px;
+    }
+  }
+
+  /* ── Contact ────────────────────────────────────────────────
+     Light gray background to close the page — mirrors About.
+     Rhythm: white → gray → white → gray → white (footer)
+  ────────────────────────────────────────────────────────── */
+  .contact {
+    background-color: var(--color-surface);
+  }
+
+  .contact-heading {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    margin-bottom: 16px;
+  }
+
+  .contact-sub {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    margin-bottom: 40px;
+    max-width: 52ch;
+  }
+
+  /* Three stacked rows — email, LinkedIn, CV */
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--color-border);
+    text-decoration: none;
+    transition: color 200ms ease;
+  }
+
+  .contact-item:first-child {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .contact-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-secondary);
+    min-width: 56px; /* keeps values aligned */
+  }
+
+  .contact-value {
+    font-size: 1rem;
+    color: var(--color-text-primary);
+    transition: color 200ms ease;
+  }
+
+  .contact-item:hover .contact-value {
+    color: var(--color-accent);
+  }
+
+  /* ── Experience Timeline ────────────────────────────────────
+     Each item has two columns: date on the left, content right.
+     A vertical line connects them visually.
+  ────────────────────────────────────────────────────────── */
+  .experience-heading {
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    margin-bottom: 40px;
+  }
+
+  .timeline {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-left: 2px solid var(--color-border); /* the vertical line */
+    padding-left: 0;
+    margin-left: 8px;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 24px;
+    padding: 0 0 40px 32px; /* left padding clears the vertical line */
+    position: relative;
+  }
+
+  /* The dot on the timeline line */
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -5px; /* centers on the 2px border-left */
+    top: 4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+  }
+
+  .timeline-period {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    padding-top: 3px; /* aligns with company name baseline */
+    white-space: nowrap;
+  }
+
+  .timeline-company {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .timeline-role {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 10px;
+  }
+
+  .timeline-description {
+    font-size: 0.95rem;
+    color: var(--color-text-primary);
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+
+  .timeline-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-accent);
+  }
+
+  .timeline-link:hover {
+    color: var(--color-accent-hover);
+  }
+
+  @media (max-width: 640px) {
+    .timeline-item {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ── About ───────────────────────────────────────────────── */
+  .about {
+    background-color: var(--color-surface); /* light gray — visual break from white hero */
+  }
+
+  .about-heading {
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    margin-bottom: 32px;
+    line-height: 1.3;
+  }
+
+  /* Stack the three paragraphs with consistent spacing between them */
+  .about-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .about-body p {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-text-primary);
+  }
+</style>

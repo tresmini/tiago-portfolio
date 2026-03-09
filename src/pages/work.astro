@@ -1,0 +1,318 @@
+---
+/**
+ * work.astro — Work page (route: /work)
+ * Sections: Skills → Case Studies
+ */
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Work — Tiago Resmini">
+
+  <!-- ── Page Header ─────────────────────────────────────────
+       Simple title block at the top of the page.
+       Keeps the reader oriented after clicking from the nav.
+  ────────────────────────────────────────────────────────── -->
+  <section class="page-header">
+    <div class="container">
+      <span class="section-label">Work</span>
+      <h1 class="page-title">Case studies & skills</h1>
+      <p class="page-sub">
+        A look at the problems I've worked on, how I approached them,
+        and what came out the other side.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Skills ───────────────────────────────────────────────
+       Not a laundry list — grouped by what the skill actually
+       *does* in the job. Interviewers scan for keyword matches.
+       Gray background creates visual rhythm with white cards below.
+  ────────────────────────────────────────────────────────── -->
+  <section class="skills">
+    <div class="container">
+      <span class="section-label">Skills & Competencies</span>
+
+      <dl class="skill-groups">
+
+        <div class="skill-group" data-animate>
+          <dt class="skill-category">Product</dt>
+          <dd class="skill-tags">
+            <span class="tag">Discovery</span>
+            <span class="tag">Roadmapping</span>
+            <span class="tag">Prioritization</span>
+            <span class="tag">OKRs</span>
+            <span class="tag">Go-to-market</span>
+            <span class="tag">Metrics & KPIs</span>
+          </dd>
+        </div>
+
+        <div class="skill-group" data-animate>
+          <dt class="skill-category">Technical</dt>
+          <dd class="skill-tags">
+            <span class="tag">APIs</span>
+            <span class="tag">Data modeling</span>
+            <span class="tag">SQL</span>
+            <span class="tag">System design</span>
+            <span class="tag">AI / Computer Vision</span>
+            <span class="tag">Hardware + SaaS</span>
+          </dd>
+        </div>
+
+        <div class="skill-group" data-animate>
+          <dt class="skill-category">Leadership</dt>
+          <dd class="skill-tags">
+            <span class="tag">Stakeholder alignment</span>
+            <span class="tag">Cross-functional teams</span>
+            <span class="tag">PM mentoring</span>
+            <span class="tag">Executive communication</span>
+          </dd>
+        </div>
+
+        <div class="skill-group" data-animate>
+          <dt class="skill-category">Domains</dt>
+          <dd class="skill-tags">
+            <span class="tag">SaaS</span>
+            <span class="tag">Marketplace</span>
+            <span class="tag">Fleet Tech</span>
+            <span class="tag">AI Products</span>
+            <span class="tag">MarTech</span>
+            <span class="tag">B2B</span>
+          </dd>
+        </div>
+
+      </dl>
+    </div>
+  </section>
+
+  <!-- ── Case Studies ──────────────────────────────────────────
+       Three cards — one per company. Each card is a self-contained
+       summary that earns the click to the full case study.
+       White background returns after the gray skills section.
+  ────────────────────────────────────────────────────────── -->
+  <section class="case-studies">
+    <div class="container">
+      <span class="section-label">Case Studies</span>
+      <h2 class="case-studies-heading">Where I've done my best work</h2>
+
+      <div class="cards">
+
+        <!-- Cobli card -->
+        <article class="card" data-animate>
+          <div class="card-header">
+            <div>
+              <h3 class="card-company">Cobli</h3>
+              <p class="card-role">Senior Product Manager · Jul 2024 — Jan 2026</p>
+            </div>
+          </div>
+          <p class="card-description">
+            Built a cloud validation layer on top of supplier firmware at a fleet
+            intelligence platform — reducing AI-generated false positives by ~70%
+            and rebuilding customer trust in safety alerts.
+          </p>
+          <div class="card-tags">
+            <span class="tag">Fleet Tech</span>
+            <span class="tag">AI / Computer Vision</span>
+            <span class="tag">Hardware + SaaS</span>
+          </div>
+          <a href="/work/cobli" class="card-link">Read case study →</a>
+        </article>
+
+        <!-- OLX Brasil card -->
+        <article class="card" data-animate>
+          <div class="card-header">
+            <div>
+              <h3 class="card-company">OLX Brasil</h3>
+              <p class="card-role">Senior Product Manager · Feb 2021 — Jun 2024</p>
+            </div>
+          </div>
+          <p class="card-description">
+            Built an internal platform at Brazil's largest classifieds marketplace
+            that decoupled backend from frontend via APIs — cutting time-to-deploy
+            new use cases by 80% and enabling a team of 40+ engineers to move
+            independently.
+          </p>
+          <div class="card-tags">
+            <span class="tag">Marketplace</span>
+            <span class="tag">Platform Engineering</span>
+            <span class="tag">B2B</span>
+          </div>
+          <a href="/work/olx" class="card-link">Read case study →</a>
+        </article>
+
+        <!-- RD Station card -->
+        <article class="card" data-animate>
+          <div class="card-header">
+            <div>
+              <h3 class="card-company">RD Station</h3>
+              <p class="card-role">Senior Product Manager · Jan 2016 — Jan 2021</p>
+            </div>
+          </div>
+          <p class="card-description">
+            Identified that 20% of active analytics users were stuck — not loyal —
+            and made the case for PMF-first investment. Raised satisfaction from
+            2.8 to 4.2 in 3 months using a two-question survey and design partners.
+          </p>
+          <div class="card-tags">
+            <span class="tag">MarTech</span>
+            <span class="tag">SaaS</span>
+            <span class="tag">Analytics</span>
+            <span class="tag">UX</span>
+          </div>
+          <a href="/work/rdstation" class="card-link">Read case study →</a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* ── Page Header ────────────────────────────────────────── */
+  .page-header {
+    padding-bottom: 0; /* skills section right below — no double gap */
+  }
+
+  .page-title {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    margin-top: 8px;
+    margin-bottom: 16px;
+  }
+
+  .page-sub {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    max-width: 52ch;
+  }
+
+  /* ── Skills ─────────────────────────────────────────────── */
+  .skills {
+    background-color: var(--color-surface); /* light gray */
+  }
+
+  /* dl (definition list) — semantic HTML for term + description pairs.
+     Here: skill category name (dt) + its tags (dd). */
+  .skill-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  .skill-group {
+    display: grid;
+    grid-template-columns: 120px 1fr; /* label left, tags right */
+    gap: 16px;
+    align-items: start;
+  }
+
+  .skill-category {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-secondary);
+    padding-top: 5px; /* align with first tag row */
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0; /* reset dl default margin */
+  }
+
+  /* Reuse the same .tag style from global/index — pill shape */
+  .tag {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    padding: 4px 14px;
+  }
+
+  @media (max-width: 640px) {
+    .skill-group {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+  }
+
+  /* ── Case Studies ────────────────────────────────────────── */
+  .case-studies-heading {
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    margin-bottom: 40px;
+  }
+
+  /* Stack cards vertically — one per row for maximum readability.
+     Each card is a full-width block, not a grid column. */
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  /* ── Card ────────────────────────────────────────────────── */
+  .card {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 32px;
+
+    /* Hover lift animation — declared here for the transition */
+    transition: box-shadow 200ms ease, transform 200ms ease;
+  }
+
+  /* Subtle lift on hover: card rises 2px and gains a shadow */
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+
+  .card-company {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .card-role {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+
+  .card-description {
+    font-size: 0.975rem;
+    line-height: 1.7;
+    color: var(--color-text-primary);
+    max-width: 100%; /* override global p max-width: 60ch */
+    margin-bottom: 20px;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .card-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color 200ms ease;
+  }
+
+  .card-link:hover {
+    color: var(--color-accent-hover);
+  }
+</style>

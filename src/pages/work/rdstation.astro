@@ -1,0 +1,178 @@
+---
+/**
+ * rdstation.astro — RD Station case study (route: /work/rdstation)
+ * Primary story: S008 — Analytics Satisfaction Improvement
+ */
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+---
+
+<CaseStudyLayout
+  company="RD Station"
+  role="Senior Product Manager"
+  period="Jan 2016 — Jan 2021"
+  tags={["MarTech", "SaaS", "Analytics", "UX"]}
+  metric="+50% satisfaction"
+  metricNote="Analytics feature score: 2.8 → 4.2 in 3 months"
+>
+
+  <div class="cs-section" data-animate>
+    <span class="cs-section-label">Context</span>
+    <h2>A stable product with an engagement problem hiding in plain sight</h2>
+    <p>
+      RD Station is the dominant marketing automation platform in Brazil — email campaigns,
+      lead scoring, CRM integration, landing pages. I joined in 2016 and spent five years
+      as PM of the Analytics &amp; Reports squad, owning the dashboards and metrics that
+      marketers relied on to understand whether their campaigns were working.
+    </p>
+    <p>
+      By mid-way through my tenure, the most pressing technical problems were resolved.
+      The product had a stable foundation. But the engagement picture was troubling:
+      only 20% of accounts were monthly active on the analytics features.
+    </p>
+  </div>
+
+  <div class="cs-section" data-animate>
+    <span class="cs-section-label">Problem</span>
+    <h2>Active users who weren't actually satisfied</h2>
+    <p>
+      The 20% MAU figure split into two distinct groups when I looked more closely.
+      The first group was analytics-dependent customers — mature accounts and marketing
+      agencies who needed to prove ROI to their clients. They used what existed, but
+      they complained loudly: the analytics were too shallow, they were constantly
+      exporting raw data to Excel, and they kept requesting more export features.
+    </p>
+    <p>
+      The second group was data-immature customers — smaller accounts who simply didn't
+      engage with analytics at all.
+    </p>
+    <p>
+      The intuitive move was to invest in the 80% non-engaged. Bigger number, bigger
+      opportunity. But I had a different read: the 20% who were active weren't loyal —
+      they were stuck. They returned because they had no alternative, not because the
+      product served them well. Analytics had one of the worst NPS tag scores across
+      the product, and customer success had flagged analytics complaints as one of the
+      top churn risk drivers in the highest-paying accounts. What looked like retention
+      was actually churn risk hiding in usage data.
+    </p>
+    <p>
+      Investing in growing the 80% would just expose more customers to a product that
+      didn't have product-market fit with the customers who most needed it.
+    </p>
+  </div>
+
+  <div class="cs-section" data-animate>
+    <span class="cs-section-label">Process</span>
+    <h2>Measuring the right thing before building anything</h2>
+    <p>
+      The first challenge was measurement. NPS and churn data were too slow and too
+      noisy to use as a feedback loop within a product iteration cycle. I needed
+      something that would generate a signal within weeks.
+    </p>
+    <p>
+      I designed a two-question in-product survey, and the design of the two questions
+      was deliberate: one asked about satisfaction with the <em>result</em> of landing
+      page analysis, the other about satisfaction with the <em>time spent</em> doing it.
+      That split mattered. Users were nominally satisfied with the results — they'd built
+      Excel workarounds that got them to the answer eventually. But the effort cost was
+      where the real frustration lived, and a single satisfaction question would have
+      averaged it away.
+    </p>
+    <p>
+      Baseline on the landing page report (the most-used, most feature-poor): 2.8 out of 5.
+    </p>
+    <p>
+      I recruited five heavy-user marketing agency accounts as standing design partners.
+      These were the loudest complainers — which made them the most valuable signal
+      source. I ran sessions with them to understand which specific capabilities were
+      missing, used their feedback to sequence the subfeature roadmap, and ran a weekly
+      delivery cadence: ship a subfeature, roll it out to the focus group, collect
+      feedback, iterate, move to the next.
+    </p>
+  </div>
+
+  <div class="cs-section" data-animate>
+    <span class="cs-section-label">Solution</span>
+    <h2>A focused feature package for the most-used report</h2>
+    <p>
+      Rather than a broad redesign, we built a targeted package of subfeatures for the
+      landing page report — the one the analytics-dependent cohort used most and found
+      most limiting. Each subfeature was sequenced by design partner priority, shipped
+      incrementally, and validated before the next one started.
+    </p>
+    <p>
+      The full package was deployed to all customers three months after the first
+      design partner interview.
+    </p>
+  </div>
+
+  <div class="cs-section" data-animate>
+    <span class="cs-section-label">Impact</span>
+    <h2>The numbers that followed</h2>
+    <div class="cs-impact-box">
+      <p><strong>+50% satisfaction score</strong> — landing page report score from 2.8 to 4.2 out of 5</p>
+      <p><strong>+30% engagement</strong> (events per session) — users were doing more in the product rather than exporting to Excel</p>
+      <p><strong>MAU grew from 20% to 25%</strong> (+5pp) — the PMF-first investment started pulling in the non-engaged cohort too</p>
+    </div>
+  </div>
+
+  <div class="cs-section" data-animate>
+    <span class="cs-section-label">My role</span>
+    <h2>What I specifically did</h2>
+    <ul class="cs-list">
+      <li>Made the prioritization argument — invest in PMF with the 20% before
+          growing the 80% — and built the case for it with engagement and NPS data</li>
+      <li>Designed the two-question survey instrument and the result/effort distinction
+          that revealed what standard satisfaction metrics would have missed</li>
+      <li>Recruited and ran the design partner sessions, converting the loudest complainers
+          into the most useful signal source</li>
+      <li>Owned the subfeature sequencing, using design partner feedback as the
+          primary input rather than internal assumptions</li>
+    </ul>
+  </div>
+
+  <div class="cs-section" data-animate>
+    <span class="cs-section-label">Reflection</span>
+    <h2>What I'd do differently</h2>
+    <p>
+      The design partner pool was too small. Five accounts gave consistent signal, but
+      not enough variance — I was seeing the same pain points repeatedly by session
+      three. A larger pool (10–15 accounts) would have surfaced edge cases faster and
+      reduced the risk of optimizing for one agency's specific workflow rather than
+      the segment's common needs.
+    </p>
+    <p>
+      I'd also have structured the feedback capture from session one. In practice,
+      notes from early sessions were informal and harder to compare. By the time I
+      formalized the feedback template, I'd lost the ability to do clean before/after
+      comparisons on the earliest sessions. The measurement discipline I applied to
+      the survey should have applied equally to the qualitative research process.
+    </p>
+  </div>
+
+  <div class="cs-section" data-animate>
+    <span class="cs-section-label">Also at RD Station</span>
+    <h2>Other significant work in this role</h2>
+    <ul class="cs-list">
+      <li>
+        <strong>Analytics query latency (S003)</strong> — Resolved a critical performance
+        issue: analytical queries running on a transactional PostgreSQL database were
+        hitting p90 latency above 30 seconds — past the browser timeout, causing reports
+        to crash. I had no background in data warehousing. First move: benchmarked
+        competitors (if they solved it at larger scale, we could too). Commissioned a
+        research sprint; the team proposed a streaming architecture into Amazon Redshift.
+        I proposed a prototype before committing to a 3-month build — 1-2 tables, the
+        4 most-used queries, 1 week of data. Prototype confirmed the direction.
+        Result: p90 from 30s+ to ~3s.
+      </li>
+      <li>
+        <strong>First-party web tracker (S005)</strong> — Replaced the Google Analytics
+        integration with a first-party event tracker. The strategic argument: GA gave
+        us aggregated pageview counts; owning raw events was the infrastructure prerequisite
+        for a Customer Data Platform — the difference between "20 visitors today" and
+        "this lead in your CRM visited your pricing page 3 minutes ago." Reached 99%
+        precision in controlled conditions. A dedicated squad was hired to own the roadmap.
+      </li>
+    </ul>
+  </div>
+
+</CaseStudyLayout>

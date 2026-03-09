@@ -1,0 +1,177 @@
+---
+/**
+ * olx.astro — OLX Brasil case study (route: /work/olx)
+ * Primary story: S002 — Ad Platform Migration
+ */
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+---
+
+<CaseStudyLayout
+  company="OLX Brasil"
+  role="Senior Product Manager"
+  period="Feb 2021 — Jun 2024"
+  tags={["Marketplace", "Platform Engineering", "APIs", "B2B"]}
+  metric="-80% development steps"
+  metricNote="Most complex use case: from ~20 steps to 4"
+>
+
+  <div class="cs-section" data-animate>
+    <span class="cs-section-label">Context</span>
+    <h2>A dominant classifieds marketplace with a platform problem</h2>
+    <p>
+      OLX Brasil is the largest classifieds marketplace in Brazil — cars, real estate,
+      jobs, and general goods. At the scale I joined, the company was running multiple
+      product verticals simultaneously, each with its own squad and roadmap.
+    </p>
+    <p>
+      I was PM for the Ad Management and Ad Creation squads — the teams responsible for
+      the core "ad" entity that everything else in the marketplace was built on top of.
+      The ad entity was fragmented across approximately five legacy microservices, each
+      owned by a different squad, each with its own review queue and codebase conventions.
+    </p>
+  </div>
+
+  <div class="cs-section" data-animate>
+    <span class="cs-section-label">Problem</span>
+    <h2>Every new use case required touching infrastructure nobody owned end-to-end</h2>
+    <p>
+      Adding a new product category, changing a listing field, or launching a new vertical
+      feature all required coordinating changes across those five services sequentially.
+      Each step took between one and three days — not because the work was complex, but
+      because each service had a different owning squad, different code conventions to
+      navigate, and a separate review queue to wait in.
+    </p>
+    <p>
+      The most complex use cases required approximately 20 sequential steps to deploy.
+      Vertical teams — the squads responsible for autos, real estate, goods — couldn't
+      ship independently. Their roadmaps were blocked by infrastructure they didn't own
+      and couldn't change.
+    </p>
+    <p>
+      The business consequence was visible: the commercial roadmap (new vertical features,
+      new subscription types, B2B automotive tools) was consistently slipping. Sales was
+      promising timelines product couldn't deliver.
+    </p>
+  </div>
+
+  <div class="cs-section" data-animate>
+    <span class="cs-section-label">Process</span>
+    <h2>Solving the management problem before the technical one</h2>
+    <p>
+      Platform investments are long by nature — months of build with no visible
+      user-facing output. In my experience, the biggest failure mode in a platform
+      investment isn't technical; it's losing stakeholder buy-in halfway through when
+      quarterly reviews come around and there's nothing to show yet.
+    </p>
+    <p>
+      My first move was to create a measurement system before touching any code. I mapped
+      existing use case workflows step by step and defined "workflow steps" as the proxy
+      metric — each step representing one to three days of real engineering work. This
+      gave us two things: a concrete baseline (the most complex use case was 20 steps),
+      and a tool for showing measurable progress at each iteration rather than asking
+      management for trust until full delivery. Watching a specific use case drop from
+      20 steps to 12 to 7 to 4 is concrete. Architecture diagrams are not.
+    </p>
+    <p>
+      In parallel, I ran discovery sessions with every vertical PM to map their forward
+      roadmap — ensuring the architecture we designed would support what teams needed
+      to build next, not just what existed today.
+    </p>
+    <p>
+      On adoption, I knew a voluntary migration wouldn't work at the pace we needed.
+      Once the new platform could support a given use case, I enforced a policy: no
+      updates accepted via the legacy path. Exceptions required director-level escalation.
+      This made the path of least resistance the new pattern, not a choice.
+    </p>
+  </div>
+
+  <div class="cs-section" data-animate>
+    <span class="cs-section-label">Solution</span>
+    <h2>Clean external APIs abstracting the legacy layer</h2>
+    <p>
+      The platform we built exposed a set of well-defined external APIs that abstracted
+      the five legacy microservices entirely. Vertical teams could now build new use cases
+      by composing existing API capabilities — without needing to understand or coordinate
+      changes to what was underneath.
+    </p>
+    <ul class="cs-list">
+      <li>Designed the API contract schema in collaboration with backend and frontend
+          leads — six weeks of alignment before a line of code was written</li>
+      <li>Built an internal developer portal where vertical teams could browse available
+          API capabilities and request additions through a structured process</li>
+      <li>Migrated the highest-traffic use cases first to create early proof of concept
+          before broader rollout</li>
+      <li>Versioning and deprecation governance defined from the start — who could
+          add to the contract, how breaking changes were handled</li>
+    </ul>
+  </div>
+
+  <div class="cs-section" data-animate>
+    <span class="cs-section-label">Impact</span>
+    <h2>The numbers that followed</h2>
+    <div class="cs-impact-box">
+      <p><strong>-80% development steps</strong> for the most complex use case — from approximately 20 sequential steps to 4</p>
+      <p><strong>Vertical teams unblocked</strong> — squads that had been waiting on cross-service coordination could now ship independently on supported use cases</p>
+      <p><strong>Adoption enforced via policy</strong> — the legacy path was effectively closed for supported cases, preventing the two-platform maintenance problem</p>
+    </div>
+    <p>
+      The developer portal became something unexpected: teams started requesting API
+      capabilities proactively rather than building workarounds. It shifted how engineers
+      thought about what the platform owed them — from a source of friction to a service
+      they could make demands on.
+    </p>
+  </div>
+
+  <div class="cs-section" data-animate>
+    <span class="cs-section-label">My role</span>
+    <h2>What I specifically did</h2>
+    <ul class="cs-list">
+      <li>Invented the "workflow steps" measurement system — the tool that kept
+          management bought in for 12+ months without visible user-facing output</li>
+      <li>Led the cross-team discovery process with all vertical PMs, producing the
+          architectural requirements the platform needed to support</li>
+      <li>Designed and enforced the adoption policy — the decision to make legacy
+          updates require director escalation, not a request I made lightly</li>
+      <li>Owned the six-week API contract alignment process, mediating between
+          backend and frontend leads with different views on ownership</li>
+    </ul>
+  </div>
+
+  <div class="cs-section" data-animate>
+    <span class="cs-section-label">Reflection</span>
+    <h2>What I'd do differently</h2>
+    <p>
+      I underestimated how much the governance model would matter after launch.
+      The technical build went well. The ongoing question of who had authority to add,
+      change, or deprecate API capabilities was messier than I expected — we were
+      resolving governance conflicts as they surfaced rather than having agreed rules
+      upfront. I'd build a more explicit RACI for contract governance on day one,
+      not once the first conflict emerged.
+    </p>
+    <p>
+      I'd also have found a way to make the platform's contribution more legible to
+      leadership. Platform work is invisible when it works — teams just move faster,
+      and nobody attributes it. A simple "time-to-deploy" tracking dashboard, showing
+      how long new use cases took before and after the platform, would have given us
+      an ongoing narrative rather than a one-time before/after comparison.
+    </p>
+  </div>
+
+  <div class="cs-section" data-animate>
+    <span class="cs-section-label">Also at OLX</span>
+    <h2>Other significant work in this role</h2>
+    <ul class="cs-list">
+      <li>
+        <strong>ZAP+ integration crisis (S006)</strong> — Following OLX's acquisition
+        of ZAP, the flagship cross-marketplace publishing product had a critical
+        integration failure: ads published in ZAP weren't appearing in OLX. I was brought
+        in to diagnose. First move: built a SQL query joining both data warehouses to
+        measure the problem quantitatively (15% of accounts had at least one ad with
+        an integrity issue). Root cause: OLX and ZAP had different ad lifecycle models —
+        ZAP's "unpublish without delete" feature was triggering OLX's delete API.
+        Accounts with integrity issues dropped from 15% to 1% after targeted fixes.
+      </li>
+    </ul>
+  </div>
+
+</CaseStudyLayout>

@@ -1,0 +1,116 @@
+/* ─── Design Tokens ──────────────────────────────────────────
+   All colors, sizes and spacing live here as CSS variables.
+   Change a value once → it updates everywhere on the site.
+──────────────────────────────────────────────────────────── */
+:root {
+  /* Colors */
+  --color-bg:             #FFFFFF;
+  --color-surface:        #F8F9FA;
+  --color-text-primary:   #1F2937;
+  --color-text-secondary: #6B7280;
+  --color-accent:         #1D4ED8;
+  --color-accent-hover:   #1E40AF;
+  --color-border:         #E5E7EB;
+
+  /* Typography */
+  --font-family:          'Inter', sans-serif;
+  --font-size-base:       17px;
+  --line-height-base:     1.65;
+
+  /* Layout */
+  --content-width:        768px;
+  --section-padding:      96px;
+  --nav-height:           64px;
+}
+
+/* ─── Reset & Base ───────────────────────────────────────────
+   Removes browser default margins/padding and sets box-sizing.
+   Box-sizing: border-box means padding is included in width —
+   makes layout math much more predictable.
+──────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth; /* smooth scroll when clicking anchor links */
+  font-size: var(--font-size-base);
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-base);
+  -webkit-font-smoothing: antialiased; /* crisper text on Mac/retina screens */
+}
+
+/* ─── Typography ─────────────────────────────────────────────
+──────────────────────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+}
+
+p {
+  color: var(--color-text-primary);
+  max-width: 60ch; /* ~60 characters per line — ideal for reading */
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+/* ─── Layout Utilities ───────────────────────────────────────
+   .container: centers content and limits its width.
+   Works like a frame — every section uses it to stay aligned.
+──────────────────────────────────────────────────────────── */
+.container {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+section {
+  padding: var(--section-padding) 0;
+}
+
+/* ─── Scroll Animations ──────────────────────────────────────
+   Elements with [data-animate] start invisible and slightly
+   shifted down. When they enter the viewport, the JS observer
+   adds .is-visible — triggering the CSS transition.
+   Triggered once per element; never replays on scroll back up.
+──────────────────────────────────────────────────────────── */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+[data-animate].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Section Labels ─────────────────────────────────────────
+   Small uppercase text above each section heading.
+   Example: "ABOUT", "EXPERIENCE", "WORK"
+──────────────────────────────────────────────────────────── */
+.section-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin-bottom: 12px;
+}
