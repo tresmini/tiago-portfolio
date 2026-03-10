@@ -43,8 +43,7 @@ import Layout from '../layouts/Layout.astro';
 
       <!-- Right: photo -->
       <div class="hero-photo">
-        <!-- Photo placeholder — will be replaced with real image later -->
-        <div class="photo-placeholder" aria-label="Photo coming soon"></div>
+        <img src="/tiago.jpg" alt="Tiago Resmini" class="hero-img" />
       </div>
 
     </div>
@@ -283,21 +282,24 @@ import Layout from '../layouts/Layout.astro';
     color: var(--color-accent);
   }
 
-  /* ── Photo placeholder ───────────────────────────────────
-     Dashed box holds the space — replaced with real photo
-     in the content phase.
+  /* ── Hero photo ─────────────────────────────────────────
+     object-fit: cover keeps the image filling the frame
+     without distortion regardless of original aspect ratio.
+     object-position: center top keeps the face in frame
+     when the source photo is taller than 210px.
   ────────────────────────────────────────────────────────── */
   .hero-photo {
     display: flex;
     justify-content: center;
   }
 
-  .photo-placeholder {
+  .hero-img {
     width: 180px;
     height: 210px;
-    background-color: var(--color-surface);
     border-radius: 12px;
-    border: 2px dashed var(--color-border);
+    object-fit: cover;
+    object-position: center top;
+    display: block;
   }
 
   /* ── Mobile layout ───────────────────────────────────────
@@ -314,7 +316,7 @@ import Layout from '../layouts/Layout.astro';
       order: -1; /* moves photo above text */
     }
 
-    .photo-placeholder {
+    .hero-img {
       width: 140px;
       height: 160px;
     }
