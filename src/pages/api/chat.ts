@@ -81,16 +81,6 @@ export const POST: APIRoute = async ({ request }) => {
   const messages = [...history, { role: 'user' as const, content: message }];
   const startTime = new Date();
 
-  // trace groups all turns from the same visitor session in the Langfuse UI
-  const trace = langfuse.trace({ name: 'portfolio-chat', sessionId });
-
-  const generation = trace.generation({
-    name: 'claude-haiku-response',
-    model: 'claude-haiku-4-5',
-    input: messages,
-    startTime,
-  });
-
   try {
     const response = await client.messages.create({
       model: 'claude-haiku-4-5',
@@ -102,8 +92,16 @@ export const POST: APIRoute = async ({ request }) => {
     const reply =
       response.content[0].type === 'text' ? response.content[0].text : '';
 
-    generation.end({
-      output: reply,
+    // Create the generation in one shot with all data — avoids the two-phase
+    // create/end pattern where .end() schedules an async update that lands
+    // after flushAsync() has already run, causing traces to appear one request late.
+    const trace = langfuse.trace({ name: 'portfolio-chat', sessionId });
+    trace.generation({
+      name:    'claude-haiku-response',
+      model:   'claude-haiku-4-5',
+      input:   messages,
+      output:  reply,
+      startTime,
       endTime: new Date(),
       usage: {
         input:  response.usage.input_tokens,
@@ -130,7 +128,6 @@ export const POST: APIRoute = async ({ request }) => {
   } catch (err) {
     console.error('[/api/chat] Claude API error:', err);
 
-    generation.end({ output: 'error', endTime: new Date() });
     try { await langfuse.flushAsync(); } catch { /* ignore */ }
 
     return new Response(JSON.stringify({ error: 'Failed to get a response. Please try again.' }), {
