@@ -5,22 +5,29 @@
  * calls Claude Haiku with Tiago's context as the system prompt,
  * and returns the reply as JSON.
  *
- * Request body:  { message: string, history: { role: string, content: string }[] }
+ * Request body:  { message: string, history: { role: string, content: string }[], sessionId?: string }
  * Response body: { reply: string } | { error: string }
  */
 
 import type { APIRoute } from 'astro';
 import Anthropic from '@anthropic-ai/sdk';
+import { Langfuse } from 'langfuse';
 import CONTEXT from '../../data/context.md?raw';
 
 // prerender = false → this route runs server-side on every request (not pre-built)
 export const prerender = false;
 
-// Client is created once per cold start, reused across warm requests.
+// Clients are created once per cold start and reused across warm requests.
 // In Astro/Vite, .env variables are exposed via import.meta.env (not process.env),
-// so we pass the key explicitly. Set this in Vercel: Project → Settings → Environment Variables.
+// so we pass keys explicitly. Set these in Vercel: Project → Settings → Environment Variables.
 const client = new Anthropic({
   apiKey: import.meta.env.ANTHROPIC_API_KEY,
+});
+
+const langfuse = new Langfuse({
+  publicKey: import.meta.env.LANGFUSE_PUBLIC_KEY ?? '',
+  secretKey:  import.meta.env.LANGFUSE_SECRET_KEY ?? '',
+  baseUrl:    'https://cloud.langfuse.com',
 });
 
 const SYSTEM = `You are a personal assistant on Tiago Resmini's portfolio website.
@@ -47,10 +54,13 @@ export const POST: APIRoute = async ({ request }) => {
   let message: string;
   let history: { role: string; content: string }[] = [];
 
+  let sessionId = 'unknown';
+
   try {
     const body = await request.json();
     message = body.message;
     history = body.history ?? [];
+    sessionId = body.sessionId ?? 'unknown';
   } catch {
     return new Response(JSON.stringify({ error: 'Invalid request body' }), {
       status: 400,
@@ -65,20 +75,43 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  // --- Call Claude ---
+  // --- Call Claude (wrapped in a Langfuse trace for observability) ---
+  const messages = [...history, { role: 'user' as const, content: message }];
+  const startTime = new Date();
+
+  // trace groups all turns from the same visitor session in the Langfuse UI
+  const trace = langfuse.trace({ name: 'portfolio-chat', sessionId });
+
+  const generation = trace.generation({
+    name: 'claude-haiku-response',
+    model: 'claude-haiku-4-5',
+    input: messages,
+    startTime,
+  });
+
   try {
     const response = await client.messages.create({
       model: 'claude-haiku-4-5',
       max_tokens: 1024,
       system: SYSTEM,
-      messages: [
-        ...history,
-        { role: 'user', content: message },
-      ],
+      messages,
     });
 
     const reply =
       response.content[0].type === 'text' ? response.content[0].text : '';
+
+    generation.end({
+      output: reply,
+      endTime: new Date(),
+      usage: {
+        input:  response.usage.input_tokens,
+        output: response.usage.output_tokens,
+      },
+    });
+
+    // flushAsync() must be called before returning — Vercel terminates the
+    // function the moment the Response is sent, so buffered events would be lost.
+    await langfuse.flushAsync();
 
     return new Response(JSON.stringify({ reply }), {
       status: 200,
@@ -86,6 +119,10 @@ export const POST: APIRoute = async ({ request }) => {
     });
   } catch (err) {
     console.error('[/api/chat] Claude API error:', err);
+
+    generation.end({ output: 'error', endTime: new Date() });
+    await langfuse.flushAsync();
+
     return new Response(JSON.stringify({ error: 'Failed to get a response. Please try again.' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },

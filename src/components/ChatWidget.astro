@@ -279,6 +279,10 @@
   const msgs   = document.getElementById('cw-messages')!;
   const close  = document.getElementById('cw-close')!;
 
+  // Unique ID for this browser session — sent with every request so Langfuse
+  // can group all turns from the same visitor into a single session.
+  const sessionId = crypto.randomUUID();
+
   // Multi-turn conversation history sent to the API on each request
   let history: { role: string; content: string }[] = [];
 
@@ -329,7 +333,7 @@
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message, history: previousHistory }),
+        body: JSON.stringify({ message, history: previousHistory, sessionId }),
       });
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
