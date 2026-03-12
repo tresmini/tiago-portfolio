@@ -24,9 +24,11 @@ const client = new Anthropic({
   apiKey: import.meta.env.ANTHROPIC_API_KEY,
 });
 
+// process.env reads at runtime (not baked in at build time like import.meta.env),
+// so these keys take effect immediately after being set in Vercel — no rebuild needed.
 const langfuse = new Langfuse({
-  publicKey: import.meta.env.LANGFUSE_PUBLIC_KEY ?? '',
-  secretKey:  import.meta.env.LANGFUSE_SECRET_KEY ?? '',
+  publicKey: process.env.LANGFUSE_PUBLIC_KEY ?? '',
+  secretKey:  process.env.LANGFUSE_SECRET_KEY ?? '',
   baseUrl:    'https://cloud.langfuse.com',
 });
 
@@ -111,7 +113,15 @@ export const POST: APIRoute = async ({ request }) => {
 
     // flushAsync() must be called before returning — Vercel terminates the
     // function the moment the Response is sent, so buffered events would be lost.
-    await langfuse.flushAsync();
+    try {
+      await langfuse.flushAsync();
+      console.log('[/api/chat] Langfuse flush OK — keys present:', {
+        pub: !!process.env.LANGFUSE_PUBLIC_KEY,
+        sec: !!process.env.LANGFUSE_SECRET_KEY,
+      });
+    } catch (lfErr) {
+      console.error('[/api/chat] Langfuse flush error:', lfErr);
+    }
 
     return new Response(JSON.stringify({ reply }), {
       status: 200,
@@ -121,7 +131,7 @@ export const POST: APIRoute = async ({ request }) => {
     console.error('[/api/chat] Claude API error:', err);
 
     generation.end({ output: 'error', endTime: new Date() });
-    await langfuse.flushAsync();
+    try { await langfuse.flushAsync(); } catch { /* ignore */ }
 
     return new Response(JSON.stringify({ error: 'Failed to get a response. Please try again.' }), {
       status: 500,
