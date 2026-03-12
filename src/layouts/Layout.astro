@@ -66,7 +66,7 @@ const { title = 'Tiago Resmini — Product Manager' } = Astro.props;
       </div>
     </footer>
 
-    <ChatWidget />
+    {import.meta.env.PUBLIC_CHAT_ENABLED === 'true' && <ChatWidget />}
   </body>
 
   <!-- ── Scroll animation observer ──────────────────────────
