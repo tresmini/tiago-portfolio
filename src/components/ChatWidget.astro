@@ -1,0 +1,367 @@
+---
+/**
+ * ChatWidget.astro — Floating chat button + panel on every page.
+ *
+ * Injected by Layout.astro just before </body>.
+ * Calls POST /api/chat with the visitor's message and conversation history.
+ * Uses only existing design tokens from global.css — no new colours introduced.
+ */
+---
+
+<!-- ── Toggle button (always visible, bottom-right) ─── -->
+<button class="cw-toggle" id="cw-toggle" aria-label="Open chat">
+  <!-- Chat bubble icon (shown when panel is closed) -->
+  <svg class="cw-icon-open" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+       viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+  <!-- × icon (shown when panel is open) -->
+  <svg class="cw-icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+       viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"/>
+    <line x1="6" y1="6" x2="18" y2="18"/>
+  </svg>
+</button>
+
+<!-- ── Chat panel (hidden until toggle is clicked) ──── -->
+<div class="cw-panel" id="cw-panel" role="dialog" aria-label="Chat with Tiago's assistant">
+
+  <!-- Header -->
+  <div class="cw-header">
+    <div>
+      <p class="cw-title">Ask about Tiago</p>
+      <p class="cw-subtitle">Powered by AI · Usually instant</p>
+    </div>
+    <button class="cw-close" id="cw-close" aria-label="Close chat">✕</button>
+  </div>
+
+  <!-- Messages area -->
+  <div class="cw-messages" id="cw-messages">
+    <!-- Welcome message pre-rendered so the panel isn't empty on first open -->
+    <div class="cw-msg agent">
+      Hi! I'm Tiago's assistant. Ask me anything about his work, experience, or background.
+    </div>
+  </div>
+
+  <!-- Input row -->
+  <div class="cw-input-row">
+    <input
+      id="cw-input"
+      type="text"
+      placeholder="Ask a question…"
+      autocomplete="off"
+      aria-label="Your message"
+    />
+    <button id="cw-send">Send</button>
+  </div>
+
+</div>
+
+<!-- ── Styles ──────────────────────────────────────────────────────────────── -->
+<style>
+  /* Toggle button — fixed circle, bottom-right */
+  .cw-toggle {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 200;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+    transition: background 150ms ease, transform 150ms ease;
+  }
+
+  .cw-toggle:hover {
+    background: var(--color-accent-hover);
+    transform: scale(1.06);
+  }
+
+  /* Show/hide the two icons based on panel state */
+  .cw-icon-close { display: none; }
+
+  .cw-toggle.is-open .cw-icon-open  { display: none; }
+  .cw-toggle.is-open .cw-icon-close { display: block; }
+
+  /* ── Chat panel ─────────────────────────────────────────── */
+  .cw-panel {
+    position: fixed;
+    bottom: 92px;   /* sits above the toggle button */
+    right: 24px;
+    z-index: 199;
+    width: 360px;
+    height: 480px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+
+    /* Hidden by default */
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+    transition: opacity 200ms ease, transform 200ms ease;
+  }
+
+  .cw-panel.is-open {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+  }
+
+  /* ── Header ─────────────────────────────────────────────── */
+  .cw-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    border-bottom: 1px solid var(--color-border);
+    flex-shrink: 0;
+  }
+
+  .cw-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .cw-subtitle {
+    font-size: 0.78rem;
+    color: var(--color-text-secondary);
+    margin: 2px 0 0;
+  }
+
+  .cw-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    padding: 4px 8px;
+    border-radius: 6px;
+    line-height: 1;
+  }
+
+  .cw-close:hover {
+    background: var(--color-surface);
+    color: var(--color-text-primary);
+  }
+
+  /* ── Messages area ──────────────────────────────────────── */
+  .cw-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Both bubble types share base styles.
+     :global() is required because these classes are added via JavaScript
+     (document.createElement), so Astro's scoped CSS hash is never applied
+     to them — without :global() the styles simply don't match. */
+  :global(.cw-msg) {
+    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+
+  /* Agent bubble — left side */
+  :global(.cw-msg.agent) {
+    align-self: flex-start;
+    background: var(--color-surface);
+    color: var(--color-text-primary);
+  }
+
+  /* User bubble — right side */
+  :global(.cw-msg.user) {
+    align-self: flex-end;
+    background: var(--color-accent);
+    color: #fff;
+  }
+
+  /* Typing indicator — same look as agent but italic */
+  :global(.cw-msg.typing) {
+    align-self: flex-start;
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+    font-style: italic;
+  }
+
+  /* ── Input row ──────────────────────────────────────────── */
+  .cw-input-row {
+    display: flex;
+    gap: 8px;
+    padding: 12px;
+    border-top: 1px solid var(--color-border);
+    flex-shrink: 0;
+  }
+
+  .cw-input-row input {
+    flex: 1;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-family: var(--font-family);
+    font-size: 0.88rem;
+    color: var(--color-text-primary);
+    background: var(--color-bg);
+    outline: none;
+    transition: border-color 150ms ease;
+  }
+
+  .cw-input-row input:focus {
+    border-color: var(--color-accent);
+  }
+
+  .cw-input-row input::placeholder {
+    color: var(--color-text-secondary);
+  }
+
+  #cw-send {
+    background: var(--color-accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 150ms ease;
+    white-space: nowrap;
+  }
+
+  #cw-send:hover:not(:disabled) {
+    background: var(--color-accent-hover);
+  }
+
+  #cw-send:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* ── Mobile ─────────────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .cw-panel {
+      width: calc(100vw - 32px);
+      right: 16px;
+      bottom: 88px;
+    }
+
+    .cw-toggle {
+      right: 16px;
+    }
+  }
+</style>
+
+<!-- ── JavaScript ──────────────────────────────────────────────────────────── -->
+<script>
+  const toggle = document.getElementById('cw-toggle')!;
+  const panel  = document.getElementById('cw-panel')!;
+  const input  = document.getElementById('cw-input') as HTMLInputElement;
+  const send   = document.getElementById('cw-send') as HTMLButtonElement;
+  const msgs   = document.getElementById('cw-messages')!;
+  const close  = document.getElementById('cw-close')!;
+
+  // Multi-turn conversation history sent to the API on each request
+  let history: { role: string; content: string }[] = [];
+
+  // ── Open / close panel ────────────────────────────────────────────────────
+  function openPanel() {
+    panel.classList.add('is-open');
+    toggle.classList.add('is-open');
+    input.focus();
+  }
+
+  function closePanel() {
+    panel.classList.remove('is-open');
+    toggle.classList.remove('is-open');
+  }
+
+  toggle.addEventListener('click', () => {
+    panel.classList.contains('is-open') ? closePanel() : openPanel();
+  });
+
+  close.addEventListener('click', closePanel);
+
+  // ── Send on Enter key ─────────────────────────────────────────────────────
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') sendMessage();
+  });
+
+  send.addEventListener('click', sendMessage);
+
+  // ── Core send logic ───────────────────────────────────────────────────────
+  async function sendMessage() {
+    const message = input.value.trim();
+    if (!message) return;
+
+    // Show the user's message in the panel immediately
+    appendMessage(message, 'user');
+    input.value = '';
+    send.disabled = true;
+
+    // Add a typing indicator while we wait for the API
+    const typing = appendMessage('…', 'typing');
+
+    try {
+      // Push user message to local history, then call the API
+      // We pass history *before* this message — the API appends the current one itself
+      const previousHistory = [...history];
+      history.push({ role: 'user', content: message });
+
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message, history: previousHistory }),
+      });
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      const data = await res.json();
+      const reply: string = data.reply ?? 'Sorry, something went wrong.';
+
+      // Save assistant reply in history so future turns have full context
+      history.push({ role: 'assistant', content: reply });
+
+      // Replace typing indicator with the real reply
+      typing.textContent = reply;
+      typing.classList.replace('typing', 'agent');
+
+    } catch {
+      typing.textContent = 'Something went wrong — please try again.';
+      typing.classList.replace('typing', 'agent');
+      // Remove the failed user message from history so it doesn't corrupt future turns
+      history.pop();
+    } finally {
+      send.disabled = false;
+      input.focus();
+    }
+  }
+
+  // ── Helper: create a message bubble and scroll into view ─────────────────
+  function appendMessage(text: string, type: 'user' | 'agent' | 'typing') {
+    const div = document.createElement('div');
+    div.className = `cw-msg ${type}`;
+    div.textContent = text;
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+    return div;
+  }
+</script>
