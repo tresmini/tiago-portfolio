@@ -169,8 +169,11 @@
     gap: 12px;
   }
 
-  /* Both bubble types share base styles */
-  .cw-msg {
+  /* Both bubble types share base styles.
+     :global() is required because these classes are added via JavaScript
+     (document.createElement), so Astro's scoped CSS hash is never applied
+     to them — without :global() the styles simply don't match. */
+  :global(.cw-msg) {
     max-width: 85%;
     padding: 10px 14px;
     border-radius: 12px;
@@ -180,21 +183,21 @@
   }
 
   /* Agent bubble — left side */
-  .cw-msg.agent {
+  :global(.cw-msg.agent) {
     align-self: flex-start;
     background: var(--color-surface);
     color: var(--color-text-primary);
   }
 
   /* User bubble — right side */
-  .cw-msg.user {
+  :global(.cw-msg.user) {
     align-self: flex-end;
     background: var(--color-accent);
     color: #fff;
   }
 
   /* Typing indicator — same look as agent but italic */
-  .cw-msg.typing {
+  :global(.cw-msg.typing) {
     align-self: flex-start;
     background: var(--color-surface);
     color: var(--color-text-secondary);
