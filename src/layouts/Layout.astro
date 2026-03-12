@@ -9,6 +9,7 @@
  *   title — the browser tab title (has a default if not passed)
  */
 import '../styles/global.css';
+import ChatWidget from '../components/ChatWidget.astro';
 
 interface Props {
   title?: string;
@@ -65,6 +66,7 @@ const { title = 'Tiago Resmini — Product Manager' } = Astro.props;
       </div>
     </footer>
 
+    <ChatWidget />
   </body>
 
   <!-- ── Scroll animation observer ──────────────────────────
