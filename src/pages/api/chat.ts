@@ -29,7 +29,7 @@ const client = new Anthropic({
 const langfuse = new Langfuse({
   publicKey: process.env.LANGFUSE_PUBLIC_KEY ?? '',
   secretKey:  process.env.LANGFUSE_SECRET_KEY ?? '',
-  baseUrl:    'https://cloud.langfuse.com',
+  baseUrl:    'https://us.cloud.langfuse.com',
 });
 
 const SYSTEM = `You are a personal assistant on Tiago Resmini's portfolio website.
