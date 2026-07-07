@@ -97,7 +97,7 @@ import Layout from '../layouts/Layout.astro';
             <span class="timeline-period">Mar 2026 — Present</span>
           </div>
           <div class="timeline-content">
-            <h3 class="timeline-company">Ontic</h3>
+            <h3 class="timeline-company"><a href="https://ontic.co" target="_blank" rel="noopener">Ontic</a></h3>
             <p class="timeline-role">Senior Product Manager</p>
             <p class="timeline-description">
               Product Manager in the Integrations Squad, owning the API and Native
@@ -112,7 +112,7 @@ import Layout from '../layouts/Layout.astro';
             <span class="timeline-period">Jul 2024 — Jan 2026</span>
           </div>
           <div class="timeline-content">
-            <h3 class="timeline-company">Cobli</h3>
+            <h3 class="timeline-company"><a href="https://cobli.co" target="_blank" rel="noopener">Cobli</a></h3>
             <p class="timeline-role">Senior Product Manager</p>
             <p class="timeline-description">
               Fleet intelligence platform (hardware + SaaS). Led the video telematics
@@ -128,7 +128,7 @@ import Layout from '../layouts/Layout.astro';
             <span class="timeline-period">Feb 2021 — Jun 2024</span>
           </div>
           <div class="timeline-content">
-            <h3 class="timeline-company">OLX Brasil</h3>
+            <h3 class="timeline-company"><a href="https://olx.com.br" target="_blank" rel="noopener">OLX Brasil</a></h3>
             <p class="timeline-role">Senior Product Manager</p>
             <p class="timeline-description">
               Brazil's largest classifieds marketplace. Built an internal platform that
@@ -144,7 +144,7 @@ import Layout from '../layouts/Layout.astro';
             <span class="timeline-period">Jan 2016 — Jan 2021</span>
           </div>
           <div class="timeline-content">
-            <h3 class="timeline-company">RD Station</h3>
+            <h3 class="timeline-company"><a href="https://rdstation.com" target="_blank" rel="noopener">RD Station</a></h3>
             <p class="timeline-role">Senior Product Manager</p>
             <p class="timeline-description">
               Brazil's leading MarTech SaaS. Owned the reporting and analytics product,
@@ -442,6 +442,16 @@ import Layout from '../layouts/Layout.astro';
     font-size: 1.1rem;
     font-weight: 700;
     margin-bottom: 2px;
+  }
+
+  .timeline-company a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 200ms ease;
+  }
+
+  .timeline-company a:hover {
+    color: var(--color-accent);
   }
 
   .timeline-role {

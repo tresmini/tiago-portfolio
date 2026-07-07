@@ -100,7 +100,7 @@ import Layout from '../layouts/Layout.astro';
         <article class="card" data-animate>
           <div class="card-header">
             <div>
-              <h3 class="card-company">Ontic</h3>
+              <h3 class="card-company"><a href="https://ontic.co" target="_blank" rel="noopener">Ontic</a></h3>
               <p class="card-role">Senior Product Manager · Mar 2026 — Present</p>
             </div>
           </div>
@@ -120,7 +120,7 @@ import Layout from '../layouts/Layout.astro';
         <article class="card" data-animate>
           <div class="card-header">
             <div>
-              <h3 class="card-company">Cobli</h3>
+              <h3 class="card-company"><a href="https://cobli.co" target="_blank" rel="noopener">Cobli</a></h3>
               <p class="card-role">Senior Product Manager · Jul 2024 — Jan 2026</p>
             </div>
           </div>
@@ -141,7 +141,7 @@ import Layout from '../layouts/Layout.astro';
         <article class="card" data-animate>
           <div class="card-header">
             <div>
-              <h3 class="card-company">OLX Brasil</h3>
+              <h3 class="card-company"><a href="https://olx.com.br" target="_blank" rel="noopener">OLX Brasil</a></h3>
               <p class="card-role">Senior Product Manager · Feb 2021 — Jun 2024</p>
             </div>
           </div>
@@ -163,7 +163,7 @@ import Layout from '../layouts/Layout.astro';
         <article class="card" data-animate>
           <div class="card-header">
             <div>
-              <h3 class="card-company">RD Station</h3>
+              <h3 class="card-company"><a href="https://rdstation.com" target="_blank" rel="noopener">RD Station</a></h3>
               <p class="card-role">Senior Product Manager · Jan 2016 — Jan 2021</p>
             </div>
           </div>
@@ -302,6 +302,16 @@ import Layout from '../layouts/Layout.astro';
     font-size: 1.25rem;
     font-weight: 700;
     margin-bottom: 4px;
+  }
+
+  .card-company a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 200ms ease;
+  }
+
+  .card-company a:hover {
+    color: var(--color-accent);
   }
 
   .card-role {
