@@ -68,19 +68,13 @@ import Layout from '../layouts/Layout.astro';
           variables, measure what actually matters.
         </p>
         <p data-animate>
-          Over 10 years across three very different companies — a MarTech SaaS, Brazil's
-          largest classifieds marketplace, and a fleet telematics scale-up — I've developed
+          Over 10 years across four very different companies and industries, I've developed
           a pattern I return to constantly: when the right measurement instrument doesn't
-          exist, build it before doing anything else. Whether that's a precision baseline
-          for an AI model, a step-count proxy for a platform investment, or a two-question
-          survey that separates result satisfaction from effort satisfaction — the
-          measurement design usually determines whether the product decision is guesswork
-          or not.
-        </p>
-        <p data-animate>
-          I'm currently looking for a Senior or Staff PM role where I can operate at the
-          intersection of technical complexity and business impact — ideally in a team that
-          takes craft seriously and moves with intention.
+          exist, build it before doing anything else.
+          Whether that's a precision baseline for an AI model, a step-count proxy for a
+          platform investment, or a two-question survey that separates result satisfaction
+          from effort satisfaction — the measurement design usually determines whether the
+          product decision is guesswork or not.
         </p>
       </div>
     </div>
@@ -103,7 +97,7 @@ import Layout from '../layouts/Layout.astro';
             <span class="timeline-period">Mar 2026 — Present</span>
           </div>
           <div class="timeline-content">
-            <h3 class="timeline-company">Ontic</h3>
+            <h3 class="timeline-company"><a href="https://ontic.co" target="_blank" rel="noopener">Ontic</a></h3>
             <p class="timeline-role">Senior Product Manager</p>
             <p class="timeline-description">
               Product Manager in the Integrations Squad, owning the API and Native
@@ -118,7 +112,7 @@ import Layout from '../layouts/Layout.astro';
             <span class="timeline-period">Jul 2024 — Jan 2026</span>
           </div>
           <div class="timeline-content">
-            <h3 class="timeline-company">Cobli</h3>
+            <h3 class="timeline-company"><a href="https://cobli.co" target="_blank" rel="noopener">Cobli</a></h3>
             <p class="timeline-role">Senior Product Manager</p>
             <p class="timeline-description">
               Fleet intelligence platform (hardware + SaaS). Led the video telematics
@@ -134,7 +128,7 @@ import Layout from '../layouts/Layout.astro';
             <span class="timeline-period">Feb 2021 — Jun 2024</span>
           </div>
           <div class="timeline-content">
-            <h3 class="timeline-company">OLX Brasil</h3>
+            <h3 class="timeline-company"><a href="https://olx.com.br" target="_blank" rel="noopener">OLX Brasil</a></h3>
             <p class="timeline-role">Senior Product Manager</p>
             <p class="timeline-description">
               Brazil's largest classifieds marketplace. Built an internal platform that
@@ -150,7 +144,7 @@ import Layout from '../layouts/Layout.astro';
             <span class="timeline-period">Jan 2016 — Jan 2021</span>
           </div>
           <div class="timeline-content">
-            <h3 class="timeline-company">RD Station</h3>
+            <h3 class="timeline-company"><a href="https://rdstation.com" target="_blank" rel="noopener">RD Station</a></h3>
             <p class="timeline-role">Senior Product Manager</p>
             <p class="timeline-description">
               Brazil's leading MarTech SaaS. Owned the reporting and analytics product,
@@ -173,8 +167,8 @@ import Layout from '../layouts/Layout.astro';
       <span class="section-label" data-animate>Contact</span>
       <h2 class="contact-heading" data-animate>Let's talk.</h2>
       <p class="contact-sub" data-animate>
-        I'm currently open to new opportunities. If you'd like to discuss a role,
-        a project, or just connect — reach out directly.
+        If you'd like to discuss a project, an opportunity, mentorship or just
+        connect, reach out directly.
       </p>
 
       <div class="contact-links" data-animate>
@@ -448,6 +442,16 @@ import Layout from '../layouts/Layout.astro';
     font-size: 1.1rem;
     font-weight: 700;
     margin-bottom: 2px;
+  }
+
+  .timeline-company a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 200ms ease;
+  }
+
+  .timeline-company a:hover {
+    color: var(--color-accent);
   }
 
   .timeline-role {
